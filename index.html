@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elmar Leonard — Data Analyst & Scientist Portfolio</title>
+<title>Elmar Leonard — Junior Data Scientist & Data Analyst</title>
+<meta name="description" content="Portfolio of Elmar Leonard, Junior Data Scientist & Data Analyst skilled in Python, SQL, machine learning and data visualization.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -134,9 +135,34 @@
       radial-gradient(500px 350px at 5% 90%, var(--lime), transparent 55%);
     filter:blur(10px);
   }
+  /* hero background chart */
+  .hero-chart{
+    position:absolute; left:0; right:0; bottom:0; height:100%;
+    z-index:0; pointer-events:none; opacity:.4;
+  }
+  .hero-chart svg{ width:100%; height:100%; display:block; }
+  .hero-chart .line{
+    fill:none; stroke:var(--green-bright); stroke-width:3.5;
+    stroke-linecap:round; stroke-linejoin:round;
+    vector-effect:non-scaling-stroke;
+    stroke-dasharray:1; stroke-dashoffset:1;
+    animation:heroDraw 3.2s cubic-bezier(.65,0,.35,1) .3s forwards;
+  }
+  .hero-chart .area{
+    fill:url(#heroFill); opacity:0;
+    animation:heroFade 1.6s ease 2s forwards;
+  }
+  .hero-chart .grid line{ stroke:var(--border); stroke-width:1; vector-effect:non-scaling-stroke; }
+  @keyframes heroDraw{ to{ stroke-dashoffset:0; } }
+  @keyframes heroFade{ to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .hero-chart .line{ animation:none; stroke-dashoffset:0; }
+    .hero-chart .area{ animation:none; opacity:1; }
+  }
+
   .hero-inner{
     position:relative; z-index:1;
-    display:grid; grid-template-columns:1.2fr 0.8fr; gap:50px; align-items:center;
+    display:grid; grid-template-columns:1fr; gap:50px; align-items:center;
     max-width:1320px; margin:0 auto;
   }
   .pill{
@@ -174,8 +200,8 @@
   .btn-ghost{ background:transparent; border-color:var(--green); color:var(--green-deep); }
 
   .stats{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
-    margin-top:56px; max-width:900px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    margin-top:56px; max-width:700px;
   }
   .stat-card{
     background:var(--surface); border:1px solid var(--border);
@@ -185,29 +211,6 @@
   .stat-card svg{ margin-bottom:8px; }
   .stat-card .num{ font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:var(--ink); }
   .stat-card .label{ font-size:13px; color:var(--muted); margin-top:2px; }
-
-  /* live card */
-  .live-card{
-    background:linear-gradient(160deg, var(--green-deep), var(--green));
-    border-radius:18px; padding:26px;
-    box-shadow:0 24px 48px -20px rgba(19,90,56,.45);
-    color:#fff;
-  }
-  .live-card .top{ display:flex; justify-content:space-between; align-items:center; font-size:13px; }
-  .live-card .file{ font-family:'JetBrains Mono',monospace; opacity:.9; }
-  .live-card .status{ display:flex; align-items:center; gap:6px; color:var(--lime); font-weight:600; }
-  .live-card .status .dot{ width:7px; height:7px; border-radius:50%; background:var(--lime); box-shadow:0 0 0 3px rgba(143,217,168,.3); }
-  .live-card svg{ width:100%; height:auto; margin:22px 0 10px; }
-  .live-card .bottom{ display:flex; justify-content:space-between; align-items:baseline; padding-top:14px; border-top:1px solid rgba(255,255,255,.18); }
-  .live-card .bottom .label{ font-size:13px; opacity:.85; }
-  .live-card .bottom .value{ font-weight:700; color:var(--lime); }
-  .live-card svg polyline{
-    stroke-dasharray:1000;
-    stroke-dashoffset:1000;
-    animation:drawLine 2.4s cubic-bezier(.65,0,.35,1) forwards;
-    animation-delay:.3s;
-  }
-  @keyframes drawLine{ to{ stroke-dashoffset:0; } }
 
   /* ABOUT */
   .about-wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:center; max-width:1200px; margin:0 auto; }
@@ -307,6 +310,9 @@
   }
   .tl-card h4{ font-size:18px; font-weight:700; }
   .tl-card p{ margin-top:8px; color:var(--ink-soft); font-size:14.5px; }
+  .tl-org{ margin-top:4px; color:var(--green-deep); font-weight:600; font-size:14.5px; }
+  .tl-list{ margin:14px 0 0 18px; color:var(--ink-soft); font-size:14.5px; line-height:1.65; }
+  .tl-list li{ margin-top:6px; }
   .tl-badge{
     padding:6px 14px; border-radius:99px; background:var(--surface-tint); color:var(--green-deep);
     font-size:13px; font-weight:600; white-space:nowrap;
@@ -325,6 +331,7 @@
     display:flex; align-items:center; justify-content:center; color:#fff;
   }
   .cert-card h4{ font-size:16.5px; font-weight:700; }
+  .cert-card .note{ color:var(--ink-soft); font-size:13.5px; margin-top:6px; line-height:1.5; }
   .cert-card .org{ color:var(--ink-soft); font-size:14px; margin-top:4px; }
   .cert-card .year{
     display:inline-block; margin-top:12px; font-size:12.5px; font-weight:600;
@@ -404,6 +411,7 @@
   @media (max-width: 600px){
     .skills-grid, .projects-grid{ grid-template-columns:1fr; }
     .stats{ grid-template-columns:repeat(2,1fr); }
+    .stat-card:last-child:nth-child(odd){ grid-column:1 / -1; }
   }
 </style>
 </head>
@@ -435,16 +443,31 @@
 
 <section class="hero" id="home">
   <div class="hero-bg"></div>
+  <div class="hero-chart" aria-hidden="true">
+    <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="heroFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--green-bright)" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="var(--green-bright)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g class="grid">
+        <line x1="0" y1="150" x2="1440" y2="150"/><line x1="0" y1="300" x2="1440" y2="300"/><line x1="0" y1="450" x2="1440" y2="450"/>
+      </g>
+      <polygon class="area" points="0,520 90,505 180,515 270,470 360,485 450,430 540,450 630,395 720,410 810,350 900,370 990,300 1080,320 1170,240 1260,260 1350,170 1440,120 1440,600 0,600"/>
+      <polyline class="line" pathLength="1" points="0,520 90,505 180,515 270,470 360,485 450,430 540,450 630,395 720,410 810,350 900,370 990,300 1080,320 1170,240 1260,260 1350,170 1440,120"/>
+    </svg>
+  </div>
   <div class="hero-inner">
     <div>
-      <div class="pill"><span class="dot"></span>Aspiring Data Analyst & Scientist · Computer Engineering</div>
+      <div class="pill"><span class="dot"></span>Junior Data Scientist & Data Analyst · Machine Learning & Data Visualization</div>
       <h1>Turning Data Into<br><span class="accent">Meaningful</span> Insights</h1>
-      <p class="lead">Hi, I'm <b>Elmar Leonard</b>, an aspiring Data Analyst and Data Scientist passionate about transforming raw data into actionable insights.</p>
+      <p class="lead">Hi, I'm <b>Elmar Leonard</b>, a Computer Engineering graduate skilled in Python, SQL, and machine learning, turning raw data into actionable business insight.</p>
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-primary">View Projects
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="https://bit.ly/4j1wDwu" class="btn btn-outline">
+        <a href="assets/Elmar_Leonard.pdf" target="_blank" rel="noopener" class="btn btn-outline">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10241A" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
           Download Resume
         </a>
@@ -457,29 +480,19 @@
       <div class="stats">
         <div class="stat-card">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
-          <div class="num">5+</div><div class="label">Projects</div>
+          <div class="num">4</div><div class="label">Data Projects</div>
         </div>
         <div class="stat-card">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M8.5 13L7 22l5-3 5 3-1.5-9"/></svg>
-          <div class="num">1</div><div class="label">Certifications</div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+          <div class="num">87%</div><div class="label">Late Orders Flagged</div>
+        </div>
+        <div class="stat-card">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+          <div class="num">100K</div><div class="label">Records Automated</div>
         </div>
       </div>
     </div>
 
-    <div class="live-card">
-      <div class="top">
-        <span class="file mono">sales_data.py</span>
-        <span class="status"><span class="dot"></span> live</span>
-      </div>
-      <svg viewBox="0 0 320 110" preserveAspectRatio="none">
-        <polyline points="0,60 20,55 40,68 60,50 80,58 100,40 120,52 140,44 160,60 180,48 200,55 220,35 240,45 260,30 280,38 300,25 320,32"
-          fill="none" stroke="#8FD9A8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="bottom">
-        <span class="label">Revenue Trend</span>
-        <span class="value">↑ 12.4%</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -503,18 +516,23 @@
     </div>
     <div class="about-body">
       <h3>Elmar Leonard</h3>
-      <div class="role">Computer Engineering Graduate · Data Analyst & ML Enthusiast</div>
-      <p>I am a Computer Engineering graduate with a deep-seated passion for Data Analytics and Machine Learning. I specialize in bridging the gap between complex datasets and human decisions by leveraging Python to uncover trends and solve intricate business problems. My goal is to become a professional Data Analyst or Data Scientist, contributing to impactful projects through rigorous, data-driven decision-making.</p>
+      <div class="role">Junior Data Scientist & Data Analyst · Computer Engineering Graduate</div>
+      <p>I'm a Computer Engineering graduate skilled in Python, SQL, and machine learning for business-focused data analysis. I built a late-delivery prediction model on about 100,000 Olist orders that flagged 87% of late orders, and previously automated the entry of about 100,000 health records at the Ministry of Health of Indonesia, cutting processing time per entry from 3 to 1 minute. I'm seeking a Junior Data Scientist or Junior Data Analyst role where I can turn data into actionable business insight.</p>
       <div class="tag-row">
         <span class="tag">Python</span>
         <span class="tag">SQL</span>
         <span class="tag">Machine Learning</span>
         <span class="tag">EDA</span>
         <span class="tag">Data Visualization</span>
+        <span class="tag">Statistical Analysis</span>
       </div>
       <div class="loc">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        Jakarta, Indonesia
+        West Jakarta, Indonesia
+      </div>
+      <div class="loc">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+        English (Full Professional) · Indonesian (Native)
       </div>
     </div>
   </div>
@@ -531,29 +549,29 @@
       <div class="skill-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
       </div>
-      <h4>Language</h4>
-      <div class="skill-tags"><span>Python</span><span>C / C++</span><span>SQL</span></div>
+      <h4>Languages</h4>
+      <div class="skill-tags"><span>Python</span><span>SQL (MySQL)</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
       </div>
       <h4>Libraries</h4>
-      <div class="skill-tags"><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span></div>
+      <div class="skill-tags"><span>pandas</span><span>NumPy</span><span>SciPy</span><span>scikit-learn</span><span>Matplotlib</span><span>Seaborn</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon" style="background:linear-gradient(160deg,#5CC98A,#1F7A4D);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
       </div>
-      <h4>Data Skills</h4>
-      <div class="skill-tags"><span>Data Cleaning</span><span>EDA</span><span>Data Visualization</span><span>Statistical Analysis</span></div>
+      <h4>Data & ML Skills</h4>
+      <div class="skill-tags"><span>Data Cleaning & Wrangling</span><span>EDA</span><span>Statistical Analysis</span><span>Hypothesis Testing</span><span>Classification</span><span>Predictive Modeling</span><span>Gradient Boosting</span><span>Model Evaluation</span><span>Threshold Tuning</span><span>Data Visualization</span><span>Dashboard Development</span><span>Web Scraping</span><span>Process Automation</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
       </div>
       <h4>Tools</h4>
-      <div class="skill-tags"><span>Git</span><span>GitHub</span><span>Jupyter Notebook</span><span>VS Code</span><span>Arduino IDE</span><span>ESP 32</span></div>
+      <div class="skill-tags"><span>Tableau</span><span>Streamlit</span><span>Microsoft Excel</span><span>Selenium</span><span>MySQL</span><span>Git</span><span>GitHub</span><span>Looker Studio</span></div>
     </div>
   </div>
 </section>
@@ -565,13 +583,13 @@
     <p class="sub">A showcase of my data analysis work</p>
   </div>
   <div class="projects-grid">
-    <a class="project-card p1" href="https://github.com/jcdspurwadhika/JCDSBSD-33_Alpha" target="_blank" rel="noopener">
+    <a class="project-card p1" href="https://github.com/ElmarLeonard9/Olist_Data-Analysis_and_Late-delivery-Prediction-Modeling" target="_blank" rel="noopener">
       <div class="project-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M1 6h13v10H1z"/><path d="M14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
       </div>
-      <h4>Olist Late Delivery Analysis & Prediction</h4>
-      <p>Analyzed what drives late deliveries on Olist, from framing the business cost of missed delays to statistical testing of seller, timing and seasonal factors, then built a prediction model and turned the findings into recommendations and a dashboard.</p>
-      <div class="skill-tags"><span>Python</span><span>EDA</span><span>Machine Learning</span><span>Tableau</span></div>
+      <h4>Olist E-Commerce Late Delivery Analysis & Prediction</h4>
+      <p>Late deliveries (6.7% of orders) dropped review scores from about 4.2 to 2.3. Analyzed about 100,000 orders in a team of three, confirmed the effect with Welch's t-test (p &lt; 0.001), and compared 12 leakage-free classification models. The selected model flagged 87% of truly late orders and, in simulation, lifted the estimated average review score from 3.01 to 3.98 (+32.26%). Deployed as a Streamlit app with a Tableau dashboard.</p>
+      <div class="skill-tags"><span>Python</span><span>scikit-learn</span><span>Tableau</span><span>Streamlit</span></div>
       <span class="project-link">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
       </span>
@@ -581,19 +599,19 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
       </div>
       <h4>Bank Marketing Campaign Analysis & ML</h4>
-      <p>Built and evaluated a machine learning classification model to predict customer response to a bank's term deposit marketing campaign, from data cleaning through feature engineering.</p>
-      <div class="skill-tags"><span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>Machine Learning</span></div>
+      <p>Calling a bank's entire customer list wasted call-center hours. Led the modeling in a team of two, comparing 14 classification models and selecting Gradient Boosting (80% recall, 63% precision at a 0.351 cutoff). In a simulation with illustrative costs, the model-guided call list cut calls by 41% (about $9,555 saved) and converted 36% better than random dialing.</p>
+      <div class="skill-tags"><span>Python</span><span>pandas</span><span>scikit-learn</span><span>Gradient Boosting</span></div>
       <span class="project-link">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
       </span>
     </a>
-    <a class="project-card p3" href="https://github.com/ElmarLeonard9/Unsynchronized_Delivery_to_Installation_on_Dekoruma_Analysis" target="_blank" rel="noopener">
+    <a class="project-card p3" href="https://github.com/ElmarLeonard9/Unsynchronized_Delivery_to_Installation_on_Home_and_Living_Company_Analysis" target="_blank" rel="noopener">
       <div class="project-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M16 14.3c2.6.4 4.5 2.3 4.5 5.2"/></svg>
       </div>
       <h4>Unsynchronized Delivery to Installation Analysis</h4>
-      <p>Analyzed the gap between delivery and installation timelines for Dekoruma orders to uncover operational bottlenecks and recommend process improvements.</p>
-      <div class="skill-tags"><span>Python</span><span>Pandas</span><span>SQL</span><span>EDA</span></div>
+      <p>At Home &amp; Living Company, 66.8% of furniture installations breached their 1-day SLA. In a team of two, cleaned and merged 300,000 order records and used ANOVA and Welch's t-tests to find a uniform 2.51-day scheduling gap from a systemic scheduling-engine issue, with an estimated Rp 54.88 billion exposure concentrated in Wardrobes. Proposed a central scheduling fix and targeted supplier audits.</p>
+      <div class="skill-tags"><span>Python</span><span>pandas</span><span>SciPy</span><span>Hypothesis Testing</span></div>
       <span class="project-link">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
       </span>
@@ -613,9 +631,9 @@
       <div class="project-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/></svg>
       </div>
-      <h4>Web Scraper</h4>
-      <p>Built a Python scraper to automatically collect and structure data from target websites, feeding clean datasets into downstream analysis.</p>
-      <div class="skill-tags"><span>Python</span><span>BeautifulSoup</span><span>Web Scraping</span></div>
+      <h4>Finviz Stock Screener Web Scraper & MySQL Database</h4>
+      <p>Finviz data is spread across many paginated pages, blocking bulk querying and tracking. Built a solo Python pipeline (Requests, BeautifulSoup) that crawls with randomized delays and loads ten fields per stock into MySQL through PyMySQL, delivering 11,708 company records in a duplicate-free table that refreshes with one command.</p>
+      <div class="skill-tags"><span>Python</span><span>MySQL</span><span>BeautifulSoup</span><span>Web Scraping</span></div>
       <span class="project-link">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
       </span>
@@ -641,13 +659,18 @@
     <p class="sub">My professional journey so far</p>
   </div>
   <div class="timeline">
-    <div class="timeline-item current">
+    <div class="timeline-item">
       <div class="tl-card">
-        <div>
-          <h4>Data Entry</h4>
-          <p>Worked on data cleaning and creating automation tools to insert data to a website for Ministry of Health National Commission for Adverse Events Following Immunization in Indonesia (Komnas PP KIPI).</p>
+        <div style="flex:1; min-width:260px;">
+          <h4>Data Associate (Project Based)</h4>
+          <div class="tl-org">Ministry of Health of Indonesia — Central Jakarta</div>
+          <ul class="tl-list">
+            <li>Collaborated in a team of three to clean and prepare about 100,000 Adverse Events Following Immunization (AEFI) records using Excel and Python, resolving duplicates, inconsistent formats, and missing values, and restructuring the data for system integration.</li>
+            <li>Developed a Python and Selenium automation tool that entered all 100,000 records into the Biofarma website, cutting processing time from 3 minutes to 1 minute per entry (-67%).</li>
+            <li>Implemented script-based validation to verify data accuracy across the entered records.</li>
+          </ul>
         </div>
-        <span class="tl-badge">2025 – 2026</span>
+        <span class="tl-badge">Sep 2025 – Feb 2026</span>
       </div>
     </div>
   </div>
@@ -666,7 +689,7 @@
       </div>
       <div>
         <h4>Data Science & Machine Learning</h4>
-        <div class="org">Purwadhika</div>
+        <div class="org">Purwadhika Digital Technology School</div>
         <span class="year">Oct 2026</span>
       </div>
     </div>
@@ -685,8 +708,20 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/><path d="M22 10v6"/></svg>
       </div>
       <div>
+        <h4>Job Connector Data Science & Machine Learning (JCDSBSD-33)</h4>
+        <div class="org">Purwadhika Digital Technology School</div>
+        <div class="note">Core training: Python, SQL, Exploratory Data Analysis (EDA), Statistics, Data Visualization (Tableau), Machine Learning</div>
+        <span class="year">Apr 2026 – Oct 2026</span>
+      </div>
+    </div>
+    <div class="cert-card" style="grid-column:1 / -1;">
+      <div class="cert-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/><path d="M22 10v6"/></svg>
+      </div>
+      <div>
         <h4>Bachelor of Computer Engineering</h4>
-        <div class="org">University of Diponegoro — Semarang, Indonesia</div>
+        <div class="org">Diponegoro University — Semarang, Indonesia</div>
+        <div class="note">GPA 3.73 / 4.00</div>
         <span class="year">2019 – 2026</span>
       </div>
     </div>
@@ -702,10 +737,10 @@
   <div class="contact-wrap">
     <div class="contact-left">
       <h3>Get In Touch</h3>
-      <p>I'm open to internships, freelance projects, data analyst and data scientist roles. Feel free to reach out!</p>
+      <p>I'm seeking a Junior Data Scientist or Junior Data Analyst role. Feel free to reach out!</p>
       <div class="contact-loc">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F7A4D" stroke-width="2"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        Jakarta, Indonesia
+        West Jakarta, Indonesia
       </div>
       <div class="social-row">
         <a href="https://www.linkedin.com/in/elmar-leonard" target="_blank" rel="noopener" class="social-btn li">
@@ -748,7 +783,7 @@
   <div class="footer-grid">
     <div>
       <div class="footer-logo">Elmar L<span>.</span></div>
-      <p>Aspiring Data Analyst and Scientist that bridge the gap between complex data and human decisions.</p>
+      <p>Junior Data Scientist & Data Analyst turning data into actionable business insight.</p>
       <div class="footer-social" style="margin-top:22px;">
         <a href="https://www.linkedin.com/in/elmar-leonard" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#EAF3EC"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.25h4.56V23H.22V8.25zM8.5 8.25h4.37v2.02h.06c.61-1.15 2.1-2.37 4.33-2.37 4.63 0 5.48 3.05 5.48 7.02V23h-4.55v-6.94c0-1.66-.03-3.79-2.31-3.79-2.32 0-2.68 1.81-2.68 3.67V23H8.5V8.25z"/></svg>
