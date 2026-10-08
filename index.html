@@ -242,17 +242,22 @@
   .loc{ margin-top:20px; display:flex; align-items:center; gap:8px; color:var(--ink-soft); font-size:14.5px; }
 
   /* SKILLS */
-  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; max-width:1300px; margin:0 auto; }
+  .skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1200px; margin:0 auto; }
   .skill-card{
+    display:flex; flex-direction:column;
     background:var(--surface); border:1px solid var(--border); border-radius:16px;
-    padding:28px 24px; box-shadow:var(--shadow); transition:transform .2s;
+    padding:26px; box-shadow:var(--shadow); transition:transform .2s, border-color .2s;
   }
   .skill-card:hover{ transform:translateY(-4px); border-color:var(--green); }
-  .skill-icon{
-    width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-    margin-bottom:20px; color:#fff;
+  .skill-head{
+    display:flex; align-items:center; gap:14px;
+    padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--border);
   }
-  .skill-card h4{ font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); margin-bottom:16px; }
+  .skill-icon{
+    width:44px; height:44px; flex-shrink:0; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+  }
+  .skill-card h4{ font-size:18px; font-weight:700; color:var(--ink); }
   .skill-tags{ display:flex; flex-wrap:wrap; gap:8px; }
   .skill-tags span{
     font-size:13px; padding:6px 12px; border-radius:8px;
@@ -262,19 +267,38 @@
   /* PROJECTS */
   .projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1300px; margin:0 auto; }
   .project-card{
-    display:block; cursor:pointer;
+    position:relative; display:flex; flex-direction:column; cursor:pointer;
     border-radius:18px; padding:30px; border:1px solid var(--border);
     box-shadow:var(--shadow); background:var(--surface);
     transition:transform .2s, box-shadow .2s, border-color .2s;
   }
   .project-card:hover{ transform:translateY(-5px); border-color:var(--green); box-shadow:0 18px 36px -14px rgba(19,90,56,.3); }
+  .project-actions{
+    margin-top:auto; padding-top:22px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px;
+  }
   .project-link{
     display:inline-flex; align-items:center; gap:6px;
-    margin-top:2px; font-size:13.5px; font-weight:700; color:var(--green-deep);
+    font-size:13.5px; font-weight:700; color:var(--green-deep);
   }
+  /* the main link covers the whole card, so the card still opens it */
+  .project-link::after{ content:''; position:absolute; inset:0; border-radius:18px; z-index:1; }
+  .project-link:focus-visible{ outline:none; }
+  .project-link:focus-visible::after{ outline:2px solid var(--green); outline-offset:3px; }
   .project-card:hover .project-link{ color:var(--green); }
   .project-link svg{ transition:transform .2s; }
   .project-card:hover .project-link svg{ transform:translate(2px,-2px); }
+  /* separate button, sits above the card-wide link */
+  .project-btn{
+    position:relative; z-index:2;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:10px;
+    font-size:13.5px; font-weight:700; color:var(--green-deep);
+    background:var(--surface); border:1px solid var(--green);
+    transition:background-color .2s, transform .15s;
+  }
+  .project-btn:hover{ background:var(--surface-tint); transform:translateY(-1px); }
+  .project-btn:focus-visible{ outline:2px solid var(--green); outline-offset:3px; }
   .project-icon{
     width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center;
     color:#fff; margin-bottom:22px;
@@ -337,6 +361,18 @@
     display:inline-block; margin-top:12px; font-size:12.5px; font-weight:600;
     background:var(--surface-tint); color:var(--green-deep); padding:4px 12px; border-radius:99px;
   }
+
+  .cert-meta{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:12px; }
+  .cert-meta .year{ margin-top:0; }
+  .cert-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:5px 12px; border-radius:99px;
+    font-size:12.5px; font-weight:700; color:var(--green-deep);
+    background:var(--surface); border:1px solid var(--green);
+    transition:background-color .2s, transform .15s;
+  }
+  .cert-btn:hover{ background:var(--surface-tint); transform:translateY(-1px); }
+  .cert-btn:focus-visible{ outline:2px solid var(--green); outline-offset:3px; }
 
   /* CONTACT */
   .contact-wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; max-width:1200px; margin:0 auto; }
@@ -546,32 +582,58 @@
   </div>
   <div class="skills-grid">
     <div class="skill-card">
-      <div class="skill-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+        </div>
+        <h4>Programming &amp; Data</h4>
       </div>
-      <h4>Languages</h4>
-      <div class="skill-tags"><span>Python</span><span>SQL (MySQL)</span></div>
+      <div class="skill-tags"><span>Python</span><span>SQL (MySQL)</span><span>pandas</span><span>NumPy</span><span>scikit-learn</span><span>Data Cleaning &amp; Wrangling</span></div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        </div>
+        <h4>Statistics &amp; Analysis</h4>
       </div>
-      <h4>Libraries</h4>
-      <div class="skill-tags"><span>pandas</span><span>NumPy</span><span>SciPy</span><span>scikit-learn</span><span>Matplotlib</span><span>Seaborn</span></div>
+      <div class="skill-tags"><span>Exploratory Data Analysis (EDA)</span><span>Statistical Analysis</span><span>Hypothesis Testing</span><span>ANOVA</span><span>Welch's t-test</span><span>SciPy</span></div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon" style="background:linear-gradient(160deg,#5CC98A,#1F7A4D);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#5CC98A,#1F7A4D);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+        </div>
+        <h4>Machine Learning</h4>
       </div>
-      <h4>Data & ML Skills</h4>
-      <div class="skill-tags"><span>Data Cleaning & Wrangling</span><span>EDA</span><span>Statistical Analysis</span><span>Hypothesis Testing</span><span>Classification</span><span>Predictive Modeling</span><span>Gradient Boosting</span><span>Model Evaluation</span><span>Threshold Tuning</span><span>Data Visualization</span><span>Dashboard Development</span><span>Web Scraping</span><span>Process Automation</span></div>
+      <div class="skill-tags"><span>Classification</span><span>Regression</span><span>Predictive Modeling</span><span>Gradient Boosting</span><span>Model Evaluation</span><span>Threshold Tuning</span></div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        </div>
+        <h4>Visualization &amp; Reporting</h4>
       </div>
-      <h4>Tools</h4>
-      <div class="skill-tags"><span>Tableau</span><span>Streamlit</span><span>Microsoft Excel</span><span>Selenium</span><span>MySQL</span><span>Git</span><span>GitHub</span><span>Looker Studio</span></div>
+      <div class="skill-tags"><span>Tableau</span><span>Google Data Studio</span><span>Matplotlib</span><span>Seaborn</span><span>Dashboard Development</span><span>Dashboard Reporting</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h4>Automation &amp; Pipelines</h4>
+      </div>
+      <div class="skill-tags"><span>ETL</span><span>Data Pipeline</span><span>Web Scraping</span><span>Process Automation</span><span>BeautifulSoup</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <div class="skill-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h4>Tools &amp; Deployment</h4>
+      </div>
+      <div class="skill-tags"><span>Microsoft Excel</span><span>Streamlit</span><span>Selenium</span><span>Git</span><span>GitHub</span></div>
     </div>
   </div>
 </section>
@@ -583,72 +645,87 @@
     <p class="sub">A showcase of my data analysis work</p>
   </div>
   <div class="projects-grid">
-    <a class="project-card p1" href="https://github.com/ElmarLeonard9/Olist_Data-Analysis_and_Late-delivery-Prediction-Modeling" target="_blank" rel="noopener">
+    <article class="project-card p1">
       <div class="project-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M1 6h13v10H1z"/><path d="M14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
       </div>
       <h4>Olist E-Commerce Late Delivery Analysis & Prediction</h4>
       <p>Late deliveries (6.7% of orders) dropped review scores from about 4.2 to 2.3. Analyzed about 100,000 orders in a team of three, confirmed the effect with Welch's t-test (p &lt; 0.001), and compared 12 leakage-free classification models. The selected model flagged 87% of truly late orders and, in simulation, lifted the estimated average review score from 3.01 to 3.98 (+32.26%). Deployed as a Streamlit app with a Tableau dashboard.</p>
       <div class="skill-tags"><span>Python</span><span>scikit-learn</span><span>Tableau</span><span>Streamlit</span></div>
-      <span class="project-link">View on GitHub
+      <div class="project-actions">
+        <a class="project-link" href="https://github.com/ElmarLeonard9/Olist_Data-Analysis_and_Late-delivery-Prediction-Modeling" target="_blank" rel="noopener" aria-label="View on GitHub: Olist E-Commerce Late Delivery Analysis & Prediction">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
-    <a class="project-card p2" href="https://github.com/ElmarLeonard9/Bank_Marketing_Campaign_Analysis_-_ML" target="_blank" rel="noopener">
+      </a>
+        <a class="project-btn" href="https://canva.link/2ngd2juehqeli1c" target="_blank" rel="noopener" aria-label="View presentation: Olist E-Commerce Late Delivery Analysis & Prediction"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="M7 21l5-5 5 5"/></svg>View Presentation</a>
+      </div>
+    </article>
+    <article class="project-card p2">
       <div class="project-icon" style="background:linear-gradient(160deg,#34B36F,#135A38);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
       </div>
       <h4>Bank Marketing Campaign Analysis & ML</h4>
       <p>Calling a bank's entire customer list wasted call-center hours. Led the modeling in a team of two, comparing 14 classification models and selecting Gradient Boosting (80% recall, 63% precision at a 0.351 cutoff). In a simulation with illustrative costs, the model-guided call list cut calls by 41% (about $9,555 saved) and converted 36% better than random dialing.</p>
       <div class="skill-tags"><span>Python</span><span>pandas</span><span>scikit-learn</span><span>Gradient Boosting</span></div>
-      <span class="project-link">View on GitHub
+      <div class="project-actions">
+        <a class="project-link" href="https://github.com/ElmarLeonard9/Bank_Marketing_Campaign_Analysis_-_ML" target="_blank" rel="noopener" aria-label="View on GitHub: Bank Marketing Campaign Analysis & ML">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
-    <a class="project-card p3" href="https://github.com/ElmarLeonard9/Unsynchronized_Delivery_to_Installation_on_Home_and_Living_Company_Analysis" target="_blank" rel="noopener">
+      </a>
+        <a class="project-btn" href="https://canva.link/acge9u68qwp88un" target="_blank" rel="noopener" aria-label="View presentation: Bank Marketing Campaign Analysis & ML"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="M7 21l5-5 5 5"/></svg>View Presentation</a>
+      </div>
+    </article>
+    <article class="project-card p3">
       <div class="project-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M16 14.3c2.6.4 4.5 2.3 4.5 5.2"/></svg>
       </div>
       <h4>Unsynchronized Delivery to Installation Analysis</h4>
       <p>At Home &amp; Living Company, 66.8% of furniture installations breached their 1-day SLA. In a team of two, cleaned and merged 300,000 order records and used ANOVA and Welch's t-tests to find a uniform 2.51-day scheduling gap from a systemic scheduling-engine issue, with an estimated Rp 54.88 billion exposure concentrated in Wardrobes. Proposed a central scheduling fix and targeted supplier audits.</p>
       <div class="skill-tags"><span>Python</span><span>pandas</span><span>SciPy</span><span>Hypothesis Testing</span></div>
-      <span class="project-link">View on GitHub
+      <div class="project-actions">
+        <a class="project-link" href="https://github.com/ElmarLeonard9/Unsynchronized_Delivery_to_Installation_on_Home_and_Living_Company_Analysis" target="_blank" rel="noopener" aria-label="View on GitHub: Unsynchronized Delivery to Installation Analysis">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
-    <a class="project-card p4" href="https://datastudio.google.com/reporting/94442734-8726-439a-b467-acb59655929d" target="_blank" rel="noopener">
+      </a>
+        <a class="project-btn" href="https://canva.link/0jk55tcf9obibwo" target="_blank" rel="noopener" aria-label="View presentation: Unsynchronized Delivery to Installation Analysis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="M7 21l5-5 5 5"/></svg>View Presentation</a>
+      </div>
+    </article>
+    <article class="project-card p4">
       <div class="project-icon" style="background:linear-gradient(160deg,#5CC98A,#1F7A4D);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
       </div>
       <h4>Interactive Reporting Dashboard</h4>
       <p>Designed an interactive dashboard to visualize key business metrics and trends in real time for easier, data-driven decision-making.</p>
       <div class="skill-tags"><span>Looker Studio</span><span>Data Visualization</span><span>Dashboard</span></div>
-      <span class="project-link">View Dashboard
+      <div class="project-actions">
+        <a class="project-link" href="https://datastudio.google.com/reporting/94442734-8726-439a-b467-acb59655929d" target="_blank" rel="noopener" aria-label="View Dashboard: Interactive Reporting Dashboard">View Dashboard
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
-    <a class="project-card p5" href="https://github.com/ElmarLeonard9/Web_Scraper" target="_blank" rel="noopener">
+      </a>
+      </div>
+    </article>
+    <article class="project-card p5">
       <div class="project-icon" style="background:linear-gradient(160deg,#3FAE72,#0F4C2E);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/></svg>
       </div>
       <h4>Finviz Stock Screener Web Scraper & MySQL Database</h4>
       <p>Finviz data is spread across many paginated pages, blocking bulk querying and tracking. Built a solo Python pipeline (Requests, BeautifulSoup) that crawls with randomized delays and loads ten fields per stock into MySQL through PyMySQL, delivering 11,708 company records in a duplicate-free table that refreshes with one command.</p>
       <div class="skill-tags"><span>Python</span><span>MySQL</span><span>BeautifulSoup</span><span>Web Scraping</span></div>
-      <span class="project-link">View on GitHub
+      <div class="project-actions">
+        <a class="project-link" href="https://github.com/ElmarLeonard9/Web_Scraper" target="_blank" rel="noopener" aria-label="View on GitHub: Finviz Stock Screener Web Scraper & MySQL Database">View on GitHub
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
-    <a class="project-card p6" href="https://github.com/ElmarLeonard9?tab=repositories" target="_blank" rel="noopener">
+      </a>
+      </div>
+    </article>
+    <article class="project-card p6">
       <div class="project-icon" style="background:linear-gradient(160deg,#2E9E63,#0F4C2E);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
       </div>
       <h4>More Projects</h4>
       <p>See the rest of my work, experiments, and code in the full list of repositories lives on my GitHub profile.</p>
       <div class="skill-tags"><span>GitHub</span></div>
-      <span class="project-link">View All Repositories
+      <div class="project-actions">
+        <a class="project-link" href="https://github.com/ElmarLeonard9?tab=repositories" target="_blank" rel="noopener" aria-label="View All Repositories: More Projects">View All Repositories
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
-      </span>
-    </a>
+      </a>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -691,6 +768,21 @@
         <h4>Data Science & Machine Learning</h4>
         <div class="org">Purwadhika Digital Technology School</div>
         <span class="year">Oct 2026</span>
+      </div>
+    </div>
+    <div class="cert-card" style="grid-column:1 / -1;">
+      <div class="cert-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M8.5 13L7 22l5-3 5 3-1.5-9"/></svg>
+      </div>
+      <div>
+        <h4>Building Personal Image</h4>
+        <div class="org">Innergy Personality & Communication</div>
+        <div class="cert-meta">
+          <span class="year">May 2026</span>
+          <a class="cert-btn" href="https://drive.google.com/file/d/1HCsueCl3HeMEHGoR1w0B6j6MCaJZzwMe/view?usp=sharing" target="_blank" rel="noopener">View Certificate
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
